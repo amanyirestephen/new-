@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout & Effects — CSS Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f0ede6;
+  --ink: #0f0e0c;
+  --red: #e03b2f;
+  --blue: #1a3fff;
+  --green: #1db954;
+  --yellow: #f5c518;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --display: 'Bebas Neue', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+
+/* ══════════════════════════════════════
+   TOP NAV
+══════════════════════════════════════ */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 48px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.top-nav::-webkit-scrollbar { display: none; }
+.nav-brand {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  padding: 0 1.5rem;
+  white-space: nowrap;
+  border-right: 1px solid rgba(240,237,230,0.15);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.nav-item {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  border-right: 1px solid rgba(240,237,230,0.1);
+  color: rgba(240,237,230,0.55);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.nav-item:hover { color: var(--bg); background: rgba(255,255,255,0.07); }
+
+/* ══════════════════════════════════════
+   SECTION STRUCTURE
+══════════════════════════════════════ */
+.section {
+  min-height: 100vh;
+  padding: 7rem 0 4rem;
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+}
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0 3rem 2.5rem;
+  border-bottom: 1px solid rgba(15,14,12,0.15);
+  margin-bottom: 3rem;
+}
+.section-num {
+  font-family: var(--display);
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(15,14,12,0.08);
+}
+.section-meta { flex: 1; }
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.3rem;
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.section-desc {
+  font-size: 0.8rem;
+  color: rgba(15,14,12,0.5);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-left: auto;
+  text-align: right;
+  align-self: flex-end;
+}
+
+/* ══════════════════════════════════════
+   01 — HOLY GRAIL
+══════════════════════════════════════ */
+#holy-grail { background: #fafaf7; }
+.holy-grail-demo {
+  display: grid;
+  grid-template:
+    "header header header" 60px
+    "sidebar main aside" 240px
+    "footer footer footer" 50px
+    / 160px 1fr 140px;
+  gap: 4px;
+  margin: 0 3rem;
+  border: 2px solid var(--ink);
+}
+.hg-header { grid-area: header; background: var(--ink); color: var(--bg); display:flex; align-items:center; padding: 0 1.5rem; font-family:var(--display); letter-spacing:0.1em; font-size:1.1rem; }
+.hg-sidebar { grid-area: sidebar; background: #e8e4dc; display:flex;align-items:center;justify-content:center; font-family:var(--mono); font-size:0.65rem; letter-spacing:0.2em; color:rgba(15,14,12,0.4); writing-mode:vertical-rl; }
+.hg-main { grid-area: main; background: var(--bg); padding:1.5rem; }
+.hg-main h3 { font-family:var(--display); font-size:1.4rem; margin-bottom:0.5rem; }
+.hg-main p { font-size:0.75rem; line-height:1.8; color:rgba(15,14,12,0.6); }
+.hg-aside { grid-area: aside; background: #dde0f0; display:flex;flex-direction:column;gap:8px;padding:1rem; }
+.hg-aside-box { background:rgba(26,63,255,0.12); height:40px; border-radius:2px; }
+.hg-footer { grid-area: footer; background: var(--ink); color:rgba(240,237,230,0.4); display:flex; align-items:center; padding: 0 1.5rem; font-family:var(--mono); font-size:0.6rem; letter-spacing:0.2em; }
+
+.layout-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: rgba(15,14,12,0.35);
+  padding: 1rem 3rem 0;
+  letter-spacing: 0.15em;
+}
+
+/* ══════════════════════════════════════
+   02 — MASONRY
+══════════════════════════════════════ */
+#masonry { background: var(--ink); color: var(--bg); }
+#masonry .section-tag { color: var(--yellow); }
+#masonry .section-num { color: rgba(240,237,230,0.05); }
+#masonry .section-header { border-bottom-color: rgba(240,237,230,0.1); }
+#masonry .section-desc { color: rgba(240,237,230,0.4); }
+
+.masonry-grid {
+  columns: 4;
+  column-gap: 12px;
+  padding: 0 3rem;
+}
+@media(max-width:900px){.masonry-grid{columns:2;}}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg);
+}
+.masonry-item:nth-child(3n) { background: #1a1a2e; }
+.masonry-item:nth-child(5n) { background: #1a2e1a; }
+.masonry-fill {
+  width: 100%;
+  display: block;
+}
+.masonry-inner {
+  padding: 1.2rem;
+  position: relative;
+}
+.masonry-inner h4 { font-family:var(--display); font-size:1.1rem; letter-spacing:0.06em; margin-bottom:0.3rem; }
+.masonry-item:nth-child(3n) .masonry-inner h4 { color:var(--yellow); }
+.masonry-item:nth-child(5n) .masonry-inner h4 { color:var(--green); }
+.masonry-inner p { font-size:0.7rem; line-height:1.7; color:rgba(15,14,12,0.55); }
+.masonry-item:nth-child(3n) .masonry-inner p,
+.masonry-item:nth-child(5n) .masonry-inner p { color:rgba(240,237,230,0.45); }
+.masonry-bar {
+  height: 3px;
+  background: var(--red);
+  margin-bottom: 0.6rem;
+  width: 30px;
+}
+.masonry-item:nth-child(3n) .masonry-bar { background: var(--yellow); }
+.masonry-item:nth-child(5n) .masonry-bar { background: var(--green); }
+
+/* ══════════════════════════════════════
+   03 — BENTO GRID
+══════════════════════════════════════ */
+#bento { background: #f5f0e8; }
+#bento .section-tag { color: var(--blue); }
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 180px 180px 180px;
+  gap: 10px;
+  padding: 0 3rem;
+}
+.bento-cell {
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.bento-cell:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+
+.b1 { grid-column: span 3; grid-row: span 2; background: var(--ink); color:var(--bg); }
+.b2 { grid-column: span 2; background: var(--blue); color:#fff; }
+.b3 { grid-column: span 1; background: var(--yellow); }
+.b4 { grid-column: span 1; background: var(--red); color:#fff; }
+.b5 { grid-column: span 2; background: #e8f0e8; }
+.b6 { grid-column: span 3; background: var(--green); color:#fff; }
+.b7 { grid-column: span 2; background: #f0e8f0; }
+.b8 { grid-column: span 1; background: var(--ink); color:var(--bg); }
+
+.bento-cell h3 { font-family:var(--display); font-size:1.5rem; letter-spacing:0.05em; margin-bottom:0.5rem; }
+.b1 h3 { font-size:2.2rem; }
+.bento-cell p { font-size:0.7rem; line-height:1.7; opacity:0.65; }
+.bento-cell .bento-icon { font-size:2rem; margin-bottom:0.8rem; }
+.bento-tag {
+  font-family: var(--mono);
+  font-size:0.55rem;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  opacity:0.5;
+  margin-bottom:0.5rem;
+}
+.bento-badge {
+  position:absolute; bottom:1.5rem; right:1.5rem;
+  width:40px; height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem;
+}
+
+/* ══════════════════════════════════════
+   04 — MAGAZINE / EDITORIAL
+══════════════════════════════════════ */
+#editorial { background: #fff; }
+#editorial .section-tag { color: var(--red); }
+.mag-layout {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr 2px 1fr;
+  gap: 0;
+  margin: 0 3rem;
+  border: 2px solid var(--ink);
+}
+.mag-divider { background: var(--ink); }
+.mag-col { padding: 2rem 1.8rem; }
+.mag-col:first-child { background: var(--red); color:#fff; }
+.mag-col:last-child { background: var(--ink); color:var(--bg); }
+.mag-kicker { font-family:var(--mono); font-size:0.6rem; letter-spacing:0.35em; text-transform:uppercase; opacity:0.6; margin-bottom:0.8rem; }
+.mag-headline { font-family:var(--display); font-size:2rem; letter-spacing:0.04em; line-height:1; margin-bottom:1rem; }
+.mag-body { font-size:0.75rem; line-height:2; opacity:0.7; }
+.mag-dropcap::first-letter {
+  float:left;
+  font-family:var(--display);
+  font-size:4rem;
+  line-height:0.8;
+  margin: 0.1em 0.1em 0 0;
+}
+.mag-number {
+  font-family:var(--display);
+  font-size:5rem;
+  line-height:1;
+  opacity:0.12;
+  margin-bottom: -1.5rem;
+}
+.mag-rule { width:30px; height:3px; background:currentColor; opacity:0.4; margin:1rem 0; }
+
+/* ══════════════════════════════════════
+   05 — EFFECTS SHOWCASE
+══════════════════════════════════════ */
+#effects { background: #0a0a0f; color:#eee; }
+#effects .section-tag { color: var(--green); }
+#effects .section-num { color: rgba(255,255,255,0.04); }
+#effects .section-header { border-bottom-color: rgba(255,255,255,0.08); }
+#effects .section-desc { color: rgba(255,255,255,0.3); }
+
+.effects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0 3rem;
+}
+.effect-card {
+  height: 200px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.8rem;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+}
+.effect-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 2;
+}
+.effect-title {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
+}
+
+/* Glassmorphism */
+.fx-glass {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.fx-glass::before {
+  content:'';position:absolute;inset:0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+}
+
+/* Neon Glow */
+.fx-neon { background: #050510; border-color: transparent; }
+.fx-neon .effect-title {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 30px #0ff, 0 0 60px #0ff;
+  animation: neonFlicker 3s ease-in-out infinite;
+}
+.fx-neon .effect-label { color: rgba(0,255,255,0.4); }
+.fx-neon::after {
+  content:'';position:absolute;inset:0;
+  box-shadow: inset 0 0 40px rgba(0,255,255,0.05);
+}
+@keyframes neonFlicker {
+  0%,100%{text-shadow:0 0 10px #0ff,0 0 30px #0ff,0 0 60px #0ff;}
+  45%{text-shadow:0 0 10px #0ff,0 0 30px #0ff,0 0 60px #0ff;}
+  50%{text-shadow:none;opacity:0.8;}
+  55%{text-shadow:0 0 10px #0ff,0 0 30px #0ff,0 0 60px #0ff;}
+}
+
+/* Gradient Mesh */
+.fx-mesh {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 40%, #f093fb 70%, #f5576c 100%);
+  background-size: 300% 300%;
+  animation: meshShift 4s ease infinite;
+}
+@keyframes meshShift {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* Scanlines Retro */
+.fx-retro {
+  background: #001100;
+  font-family: var(--mono);
+}
+.fx-retro .effect-title { color: #00ff41; font-size:1.1rem; font-family:var(--mono); }
+.fx-retro .effect-label { color: rgba(0,255,65,0.4); }
+.fx-retro::before {
+  content:'';position:absolute;inset:0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.3) 0px,rgba(0,0,0,0.3) 1px, transparent 1px, transparent 3px);
+  pointer-events:none;
+}
+.fx-retro::after {
+  content:'';position:absolute;
+  width:100%;height:30%;
+  background: rgba(0,255,65,0.04);
+  animation: scanline 4s linear infinite;
+}
+@keyframes scanline { from{top:-30%} to{top:100%} }
+
+/* Hover 3D Tilt */
+.fx-tilt {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  transition: transform 0.1s ease;
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+.fx-tilt .effect-title { color: var(--yellow); }
+.fx-tilt::before {
+  content:'✦ Hover Me ✦';
+  position:absolute; bottom:1rem; right:1rem;
+  font-size:0.55rem; letter-spacing:0.2em;
+  color:rgba(245,197,24,0.3); font-family:var(--mono);
+}
+
+/* Stripe / Zebra */
+.fx-stripe {
+  background: repeating-linear-gradient(
+    45deg,
+    #111 0px, #111 15px,
+    #1a1a1a 15px, #1a1a1a 30px
+  );
+}
+.fx-stripe .effect-title { color: var(--red); }
+
+/* Blur Reveal */
+.fx-blur { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); overflow:hidden; }
+.fx-blur .effect-title {
+  filter: blur(8px);
+  transition: filter 0.5s ease;
+}
+.fx-blur:hover .effect-title { filter: blur(0); color: #fff; }
+.fx-blur::before {
+  content:'Hover to reveal';
+  position:absolute; font-family:var(--mono);
+  font-size:0.6rem; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.25);
+  bottom:1.2rem; left:50%; transform:translateX(-50%);
+  white-space:nowrap;
+  transition: opacity 0.3s;
+}
+.fx-blur:hover::before { opacity:0; }
+
+/* Clip Path */
+.fx-clip { background: var(--bg); color:var(--ink); overflow:hidden; }
+.fx-clip::before {
+  content:'';position:absolute;
+  inset:-20%; background:var(--blue);
+  clip-path: polygon(0 30%, 100% 0%, 100% 70%, 0% 100%);
+  transition: clip-path 0.5s ease;
+}
+.fx-clip:hover::before { clip-path: polygon(0 0%, 100% 30%, 100% 100%, 0% 70%); }
+.fx-clip .effect-title { color:#fff; mix-blend-mode: difference; }
+
+/* Typewriter */
+.fx-type { background: #111; }
+.fx-type .effect-title {
+  color: #eee;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--green);
+  width: 0;
+  animation: typewrite 3s steps(12) 0.5s infinite alternate;
+  font-size:1.2rem;
+}
+@keyframes typewrite { from{width:0} to{width:100%} }
+
+/* ══════════════════════════════════════
+   06 — CARD VARIANTS
+══════════════════════════════════════ */
+#cards { background: #f7f5f0; }
+#cards .section-tag { color: var(--red); }
+.cards-row {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0 3rem;
+  flex-wrap: wrap;
+}
+
+/* Outlined */
+.card-outlined {
+  flex: 1; min-width: 200px;
+  border: 2px solid var(--ink);
+  padding: 1.8rem;
+  position: relative;
+}
+.card-outlined::before {
+  content: '';
+  position: absolute;
+  bottom: -6px; right: -6px;
+  inset: auto -6px -6px auto;
+  width: calc(100% + 2px); height: calc(100% + 2px);
+  border: 2px solid var(--ink);
+  z-index: -1;
+}
+
+/* Floating */
+.card-floating {
+  flex: 1; min-width: 200px;
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 40px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card-floating:hover { transform: translateY(-8px); box-shadow: 0 4px 8px rgba(0,0,0,0.06),0 16px 32px rgba(0,0,0,0.12),0 40px 60px rgba(0,0,0,0.08); }
+
+/* Gradient Border */
+.card-gradient-border {
+  flex: 1; min-width: 200px;
+  padding: 2px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--red), var(--yellow));
+}
+.card-gradient-inner { background: #fff; padding: 1.6rem; border-radius: 10px; height:100%; }
+
+/* Glassmorphism */
+.glass-bg {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 2rem;
+  border-radius: 16px;
+  flex: 1; min-width: 200px;
+  position: relative;
+  overflow: hidden;
+}
+.glass-bg::before {
+  content:''; position:absolute;
+  top:-40%; left:-20%;
+  width:80%; height:80%;
+  border-radius:50%;
+  background:rgba(255,255,255,0.15);
+}
+.card-glass {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 1.5rem;
+  border-radius: 10px;
+  color: #fff;
+  position: relative;
+}
+
+.card-title { font-family:var(--display); font-size:1.2rem; letter-spacing:0.05em; margin-bottom:0.5rem; }
+.card-body { font-size:0.72rem; line-height:1.8; color:rgba(15,14,12,0.55); }
+.card-tag { font-family:var(--mono); font-size:0.55rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--red); margin-bottom:0.6rem; }
+
+/* ══════════════════════════════════════
+   07 — SCROLL ANIMATIONS
+══════════════════════════════════════ */
+#scroll-fx { background: var(--ink); color:var(--bg); }
+#scroll-fx .section-tag { color: var(--yellow); }
+#scroll-fx .section-num { color:rgba(240,237,230,0.04); }
+#scroll-fx .section-header { border-bottom-color:rgba(255,255,255,0.08); }
+#scroll-fx .section-desc { color:rgba(240,237,230,0.35); }
+
+.anim-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 0 3rem;
+}
+.anim-cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex; flex-direction:column; align-items:center; gap:1rem;
+  overflow:hidden;
+}
+.anim-demo {
+  width: 60px; height: 60px;
+  background: var(--red);
+  border-radius: 4px;
+}
+.anim-name { font-family:var(--mono); font-size:0.65rem; letter-spacing:0.2em; color:rgba(240,237,230,0.4); text-transform:uppercase; }
+.anim-desc { font-size:0.72rem; color:rgba(240,237,230,0.3); line-height:1.6; }
+
+/* Animations */
+.anim-spin .anim-demo { animation: spin 3s linear infinite; border-radius:50%; background:var(--yellow); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.anim-bounce .anim-demo { animation: jumpBounce 1.2s cubic-bezier(0.36,0.07,0.19,0.97) infinite; background:var(--green); border-radius:50%; }
+@keyframes jumpBounce { 0%,100%{transform:translateY(0);} 40%{transform:translateY(-24px);} 60%{transform:translateY(-12px);} }
+
+.anim-pulse .anim-demo { animation: pulsate 1.5s ease-in-out infinite; background:var(--blue); border-radius:50%; }
+@keyframes pulsate { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.3);opacity:0.6;} }
+
+.anim-shake .anim-demo { animation: shake 0.6s ease-in-out infinite; background:var(--red); }
+@keyframes shake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-8px);} 40%{transform:translateX(8px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(4px);} }
+
+.anim-flip .anim-demo { animation: flipY 2s ease-in-out infinite; background:var(--yellow); }
+@keyframes flipY { 0%,100%{transform:rotateY(0);} 50%{transform:rotateY(180deg);} }
+
+.anim-morph .anim-demo { animation: morphShape 3s ease-in-out infinite; background:linear-gradient(135deg,var(--blue),var(--red)); }
+@keyframes morphShape {
+  0%{border-radius:4px;}
+  33%{border-radius:50% 0 50% 0;}
+  66%{border-radius:0 50% 0 50%;}
+  100%{border-radius:4px;}
+}
+
+/* ══════════════════════════════════════
+   08 — TYPOGRAPHY EFFECTS
+══════════════════════════════════════ */
+#typo-fx { background:#fff; }
+#typo-fx .section-tag { color:var(--blue); }
+.typo-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:2px;
+  margin:0 3rem;
+  border:2px solid var(--ink);
+}
+.typo-cell {
+  padding:3rem;
+  border:1px solid rgba(15,14,12,0.08);
+  min-height:180px;
+  display:flex; flex-direction:column; justify-content:center;
+  overflow:hidden;
+}
+.typo-label { font-family:var(--mono); font-size:0.55rem; letter-spacing:0.3em; color:var(--red); text-transform:uppercase; margin-bottom:1rem; }
+
+.text-stroke { font-family:var(--display); font-size:3.5rem; color:transparent; -webkit-text-stroke:2px var(--ink); letter-spacing:0.04em; }
+.text-gradient { font-family:var(--display); font-size:3rem; background:linear-gradient(90deg,var(--blue),var(--red),var(--yellow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:0.04em; }
+.text-shadow-multi { font-family:var(--display); font-size:2.8rem; letter-spacing:0.04em; text-shadow: 3px 3px 0 var(--red), 6px 6px 0 var(--blue), 9px 9px 0 var(--yellow); }
+.text-clip {
+  font-family:var(--display); font-size:3rem; letter-spacing:0.04em;
+  background: repeating-linear-gradient(45deg,var(--ink) 0,var(--ink) 10px,var(--bg) 10px,var(--bg) 20px);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.text-glitch {
+  font-family:var(--display); font-size:2.8rem; letter-spacing:0.04em;
+  position:relative; color:var(--ink);
+  animation: glitch 4s infinite;
+}
+.text-glitch::before,.text-glitch::after {
+  content:attr(data-text); position:absolute; left:0; top:0;
+}
+.text-glitch::before { color:var(--red); animation:glitchTop 4s infinite; clip-path:polygon(0 0,100% 0,100% 40%,0 40%); }
+.text-glitch::after { color:var(--blue); animation:glitchBot 4s infinite; clip-path:polygon(0 60%,100% 60%,100% 100%,0 100%); }
+@keyframes glitch { 0%,90%,100%{transform:none;} 91%{transform:translateX(-3px);} 93%{transform:translateX(3px);} 95%{transform:none;} }
+@keyframes glitchTop { 0%,88%,100%{transform:none;} 89%{transform:translateX(-5px);} 91%{transform:translateX(5px);} }
+@keyframes glitchBot { 0%,86%,100%{transform:none;} 87%{transform:translateX(5px);} 89%{transform:translateX(-5px);} }
+
+.text-3d { font-family:var(--display); font-size:2.8rem; letter-spacing:0.04em; color:var(--blue);
+  text-shadow: 1px 1px 0 #1230cc, 2px 2px 0 #1230cc, 3px 3px 0 #0e229a, 4px 4px 0 #0e229a, 5px 5px 0 #0a1870, 6px 6px 8px rgba(0,0,0,0.2); }
+
+/* ══════════════════════════════════════
+   STICKY CODE BADGE
+══════════════════════════════════════ */
+.code-badge {
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:0.65rem;
+  background:rgba(15,14,12,0.07);
+  color:rgba(15,14,12,0.5);
+  padding:0.2rem 0.6rem;
+  border-radius:3px;
+  margin:0.5rem 3rem;
+  letter-spacing:0.1em;
+}
+
+@media(max-width:900px){
+  .holy-grail-demo { grid-template: "header" "sidebar" "main" "aside" "footer" / 1fr; }
+  .hg-sidebar { writing-mode:horizontal-tb; padding:0.5rem 1rem; }
+  .bento-grid { grid-template-columns:repeat(2,1fr); grid-template-rows:auto; }
+  .b1,.b2,.b3,.b4,.b5,.b6,.b7,.b8 { grid-column:span 1; }
+  .mag-layout { grid-template-columns:1fr; }
+  .mag-divider { display:none; }
+  .anim-showcase { grid-template-columns:repeat(2,1fr); }
+  .typo-grid { grid-template-columns:1fr; }
+  .section-header { flex-direction:column; gap:0.5rem; }
+  .section-desc { text-align:left; margin-left:0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-brand">CSS LAYOUTS & EFFECTS</div>
+  <a class="nav-item" href="#holy-grail">01 Holy Grail</a>
+  <a class="nav-item" href="#masonry">02 Masonry</a>
+  <a class="nav-item" href="#bento">03 Bento Grid</a>
+  <a class="nav-item" href="#editorial">04 Editorial</a>
+  <a class="nav-item" href="#effects">05 Effects</a>
+  <a class="nav-item" href="#cards">06 Cards</a>
+  <a class="nav-item" href="#scroll-fx">07 Animations</a>
+  <a class="nav-item" href="#typo-fx">08 Typography</a>
+</nav>
+
+<!-- ═══ 01 HOLY GRAIL ═══ -->
+<section class="section" id="holy-grail">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-meta">
+      <div class="section-tag">Classic Layout</div>
+      <h2 class="section-title">Holy Grail Layout</h2>
+    </div>
+    <p class="section-desc">The classic web layout — header, footer, main content, and two sidebars. Achieved effortlessly with CSS Grid using named template areas.</p>
+  </div>
+  <span class="code-badge">grid-template-areas: "header" "sidebar main aside" "footer"</span>
+  <div class="holy-grail-demo">
+    <div class="hg-header">Header</div>
+    <div class="hg-sidebar">Left Sidebar</div>
+    <div class="hg-main">
+      <h3>Main Content</h3>
+      <p>This is the primary content area. In the Holy Grail layout, it sits between two sidebars, all sharing the middle row. CSS Grid makes this trivially simple with named areas, replacing what once required float hacks and negative margins.</p>
+    </div>
+    <div class="hg-aside">
+      <div class="hg-aside-box"></div>
+      <div class="hg-aside-box"></div>
+      <div class="hg-aside-box"></div>
+    </div>
+    <div class="hg-footer">Footer — Metropolitan International University &copy; 2026</div>
+  </div>
+</section>
+
+<!-- ═══ 02 MASONRY ═══ -->
+<section class="section" id="masonry">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-meta">
+      <div class="section-tag">Pinterest-Style</div>
+      <h2 class="section-title">Masonry Grid</h2>
+    </div>
+    <p class="section-desc">Items of varying heights pack tightly without gaps. Achieved with CSS columns or JS-based grid placement.</p>
+  </div>
+  <span class="code-badge" style="color:rgba(240,237,230,0.3);background:rgba(255,255,255,0.07);">columns: 4; column-gap: 12px;</span>
+  <div class="masonry-grid">
+
+    <div class="masonry-item">
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>Algorithms</h4>
+        <p>The study of step-by-step procedures for solving problems efficiently. Big-O notation measures their complexity.</p>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <svg class="masonry-fill" viewBox="0 0 280 140" fill="none"><rect width="280" height="140" fill="#1a1a2e"/><circle cx="140" cy="70" r="50" stroke="#f5c518" stroke-width="1" fill="none" opacity="0.3"/><line x1="40" y1="70" x2="240" y2="70" stroke="#f5c518" stroke-width="0.5" opacity="0.3"/><text x="140" y="75" text-anchor="middle" fill="#f5c518" font-family="monospace" font-size="12" opacity="0.8">O(n log n)</text></svg>
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>Big-O Complexity</h4>
+        <p>Describes the upper bound of time or space an algorithm needs as input grows.</p>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>Data Structures</h4>
+        <p>Arrays, linked lists, stacks, queues, trees, and graphs — the building blocks of every program.</p>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <svg class="masonry-fill" viewBox="0 0 280 180" fill="none"><rect width="280" height="180" fill="#1a2e1a"/><rect x="60" y="30" width="160" height="40" rx="4" fill="#1db954" opacity="0.2" stroke="#1db954" stroke-width="0.5"/><rect x="80" y="90" width="120" height="40" rx="4" fill="#1db954" opacity="0.2" stroke="#1db954" stroke-width="0.5"/><rect x="100" y="150" width="80" height="30" rx="4" fill="#1db954" opacity="0.2" stroke="#1db954" stroke-width="0.5"/><line x1="140" y1="70" x2="140" y2="90" stroke="#1db954" stroke-width="0.5" opacity="0.5"/><line x1="140" y1="130" x2="140" y2="150" stroke="#1db954" stroke-width="0.5" opacity="0.5"/></svg>
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>Binary Trees</h4>
+        <p>Hierarchical structures where each node has at most two children. Used in databases and file systems.</p>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>Networking</h4>
+        <p>The OSI model defines 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application. TCP/IP maps to 4 layers in practice.</p>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>OOP Principles</h4>
+        <p>Encapsulation, Inheritance, Polymorphism, Abstraction — the four pillars of object-oriented design.</p>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <svg class="masonry-fill" viewBox="0 0 280 120" fill="none"><rect width="280" height="120" fill="#1a0a0a"/><rect x="20" y="40" width="40" height="40" fill="#e03b2f" opacity="0.8" rx="2"/><rect x="80" y="20" width="40" height="80" fill="#e03b2f" opacity="0.5" rx="2"/><rect x="140" y="30" width="40" height="60" fill="#e03b2f" opacity="0.65" rx="2"/><rect x="200" y="10" width="40" height="100" fill="#e03b2f" opacity="0.9" rx="2"/></svg>
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>Sort Visualization</h4>
+      </div>
+    </div>
+
+    <div class="masonry-item">
+      <div class="masonry-inner">
+        <div class="masonry-bar"></div>
+        <h4>CSS Grid</h4>
+        <p>A two-dimensional layout system for the web. Define rows and columns with grid-template and place items anywhere.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 03 BENTO ═══ -->
+<section class="section" id="bento">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-meta">
+      <div class="section-tag">Apple-inspired</div>
+      <h2 class="section-title">Bento Grid</h2>
+    </div>
+    <p class="section-desc">Asymmetric grid cells of varying sizes for visually rich dashboards and product showcases. Each cell spans different column/row counts.</p>
+  </div>
+  <span class="code-badge">grid-column: span 3; grid-row: span 2;</span>
+  <div class="bento-grid">
+    <div class="bento-cell b1">
+      <div class="bento-tag">Feature</div>
+      <h3>CSS Grid<br>Bento Layout</h3>
+      <p>Cells span multiple columns and rows creating visual hierarchy.</p>
+      <div class="bento-badge">⊞</div>
+    </div>
+    <div class="bento-cell b2">
+      <div class="bento-icon">🌐</div>
+      <div class="bento-tag">Web</div>
+      <h3>Responsive</h3>
+    </div>
+    <div class="bento-cell b3">
+      <div class="bento-icon">⚡</div>
+      <h3 style="font-family:var(--display);font-size:1.2rem;letter-spacing:0.05em;">Fast</h3>
+    </div>
+    <div class="bento-cell b4">
+      <div class="bento-icon">🎨</div>
+      <h3 style="font-family:var(--display);font-size:1.2rem;letter-spacing:0.05em;">Design</h3>
+    </div>
+    <div class="bento-cell b5">
+      <div class="bento-tag" style="color:var(--blue);">Skill</div>
+      <h3 class="card-title">Algorithms</h3>
+      <p class="card-body">Data structures & problem solving at scale.</p>
+    </div>
+    <div class="bento-cell b6">
+      <div class="bento-icon">🧠</div>
+      <h3>AI &amp; Machine Learning</h3>
+      <div class="bento-badge">→</div>
+    </div>
+    <div class="bento-cell b7">
+      <div class="bento-tag" style="color:#a855f7;">Future</div>
+      <h3 class="card-title">Build the next thing</h3>
+    </div>
+    <div class="bento-cell b8">
+      <div class="bento-icon" style="font-size:2.5rem;margin:0;">MIU</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 EDITORIAL ═══ -->
+<section class="section" id="editorial">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-meta">
+      <div class="section-tag">Magazine Style</div>
+      <h2 class="section-title">Editorial Layout</h2>
+    </div>
+    <p class="section-desc">Inspired by print journalism — columns, rules, drop caps, and contrasting colour blocks for strong visual hierarchy.</p>
+  </div>
+  <span class="code-badge">grid-template-columns: 1fr 2px 1fr 2px 1fr</span>
+  <div class="mag-layout">
+    <div class="mag-col">
+      <div class="mag-number">01</div>
+      <div class="mag-kicker">Computer Science</div>
+      <h2 class="mag-headline">What is an Algorithm?</h2>
+      <div class="mag-rule"></div>
+      <p class="mag-body">An algorithm is a finite, well-defined set of instructions for solving a computational problem. Every program you write is a collection of algorithms.</p>
+    </div>
+    <div class="mag-divider"></div>
+    <div class="mag-col">
+      <div class="mag-kicker">Deep Dive</div>
+      <p class="mag-body mag-dropcap">Algorithms are evaluated on two axes: time complexity (how fast?) and space complexity (how much memory?). Big-O notation gives us a language to compare them regardless of hardware.</p>
+      <div class="mag-rule"></div>
+      <p class="mag-body">Common complexities: O(1) constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic. Always aim for the lowest you can achieve.</p>
+    </div>
+    <div class="mag-divider"></div>
+    <div class="mag-col">
+      <div class="mag-number">02</div>
+      <div class="mag-kicker">At MIU</div>
+      <h2 class="mag-headline">Study Smart</h2>
+      <div class="mag-rule"></div>
+      <p class="mag-body">Practice daily. Write code by hand. Explain concepts aloud. Teach others. These habits separate good CS students from great ones. The compiler doesn't forgive guessing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 EFFECTS ═══ -->
+<section class="section" id="effects">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-meta">
+      <div class="section-tag">CSS & Visual Effects</div>
+      <h2 class="section-title">Visual Effects</h2>
+    </div>
+    <p class="section-desc">Pure CSS effects that bring interfaces to life — glass, neon, gradients, retro scanlines, and more.</p>
+  </div>
+  <div class="effects-grid">
+
+    <div class="effect-card fx-glass">
+      <div class="effect-label">Glassmorphism</div>
+      <div class="effect-title">GLASS</div>
+    </div>
+
+    <div class="effect-card fx-neon">
+      <div class="effect-label">Neon Glow</div>
+      <div class="effect-title">NEON</div>
+    </div>
+
+    <div class="effect-card fx-mesh">
+      <div class="effect-label" style="color:rgba(255,255,255,0.7);">Gradient Mesh</div>
+      <div class="effect-title" style="color:#fff;">MESH</div>
+    </div>
+
+    <div class="effect-card fx-retro">
+      <div class="effect-label">CRT Scanlines</div>
+      <div class="effect-title">RETRO_</div>
+    </div>
+
+    <div class="effect-card fx-tilt" id="tiltCard">
+      <div class="effect-label">3D Tilt</div>
+      <div class="effect-title" style="color:var(--yellow);">TILT</div>
+    </div>
+
+    <div class="effect-card fx-stripe">
+      <div class="effect-label">Stripe Pattern</div>
+      <div class="effect-title" style="color:var(--red);">STRIPE</div>
+    </div>
+
+    <div class="effect-card fx-blur">
+      <div class="effect-label">Blur Reveal</div>
+      <div class="effect-title">HIDDEN</div>
+    </div>
+
+    <div class="effect-card fx-clip">
+      <div class="effect-label">Clip Path</div>
+      <div class="effect-title">CLIP</div>
+    </div>
+
+    <div class="effect-card fx-type">
+      <div class="effect-label">Typewriter</div>
+      <div class="effect-title">TYPING...</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 06 CARDS ═══ -->
+<section class="section" id="cards">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-meta">
+      <div class="section-tag">Component Patterns</div>
+      <h2 class="section-title">Card Variants</h2>
+    </div>
+    <p class="section-desc">Four distinct card styles for different contexts — outlined, floating shadow, gradient border, and glassmorphism.</p>
+  </div>
+  <div class="cards-row">
+
+    <div class="card-outlined">
+      <div class="card-tag">Outlined</div>
+      <div class="card-title">Hard Shadow Card</div>
+      <p class="card-body">Double border creates a retro, printed feel. Works best on light or neutral backgrounds.</p>
+    </div>
+
+    <div class="card-floating">
+      <div class="card-tag">Floating</div>
+      <div class="card-title">Shadow Elevation</div>
+      <p class="card-body">Layered box-shadows at different blur radii simulate realistic material elevation. Hover to lift.</p>
+    </div>
+
+    <div class="card-gradient-border">
+      <div class="card-gradient-inner">
+        <div class="card-tag">Gradient Border</div>
+        <div class="card-title">Colourful Edge</div>
+        <p class="card-body">Wrap a 2px gradient element around a solid inner card for a rainbow border without border-image complexity.</p>
+      </div>
+    </div>
+
+    <div class="glass-bg">
+      <div class="card-glass">
+        <div class="card-tag" style="color:rgba(255,255,255,0.6);">Glass</div>
+        <div class="card-title" style="color:#fff;">Frosted Glass</div>
+        <p class="card-body" style="color:rgba(255,255,255,0.7);">backdrop-filter: blur() creates a frosted effect. Requires a visible background behind the element.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 07 ANIMATIONS ═══ -->
+<section class="section" id="scroll-fx">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-meta">
+      <div class="section-tag">CSS Keyframes</div>
+      <h2 class="section-title">Animations</h2>
+    </div>
+    <p class="section-desc">Core CSS @keyframe animations every developer should know — all running live with no JavaScript.</p>
+  </div>
+  <div class="anim-showcase">
+    <div class="anim-cell anim-spin">
+      <div class="anim-demo"></div>
+      <div class="anim-name">Spin</div>
+      <div class="anim-desc">rotate(360deg) — clocks, loaders, icons</div>
+    </div>
+    <div class="anim-cell anim-bounce">
+      <div class="anim-demo"></div>
+      <div class="anim-name">Bounce</div>
+      <div class="anim-desc">translateY() with cubic-bezier easing</div>
+    </div>
+    <div class="anim-cell anim-pulse">
+      <div class="anim-demo"></div>
+      <div class="anim-name">Pulse</div>
+      <div class="anim-desc">scale() — notifications, live indicators</div>
+    </div>
+    <div class="anim-cell anim-shake">
+      <div class="anim-demo"></div>
+      <div class="anim-name">Shake</div>
+      <div class="anim-desc">translateX() — error states, alerts</div>
+    </div>
+    <div class="anim-cell anim-flip">
+      <div class="anim-demo"></div>
+      <div class="anim-name">Flip</div>
+      <div class="anim-desc">rotateY() — cards, reveal effects</div>
+    </div>
+    <div class="anim-cell anim-morph">
+      <div class="anim-demo"></div>
+      <div class="anim-name">Morph</div>
+      <div class="anim-desc">border-radius — organic shape shifting</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 TYPOGRAPHY ═══ -->
+<section class="section" id="typo-fx">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div class="section-meta">
+      <div class="section-tag">Text Effects</div>
+      <h2 class="section-title">Typography FX</h2>
+    </div>
+    <p class="section-desc">CSS text effects that turn plain words into visual statements — stroke, gradient, shadow stacking, and glitch.</p>
+  </div>
+  <div class="typo-grid">
+    <div class="typo-cell">
+      <div class="typo-label">-webkit-text-stroke</div>
+      <div class="text-stroke">OUTLINE</div>
+    </div>
+    <div class="typo-cell">
+      <div class="typo-label">background-clip: text</div>
+      <div class="text-gradient">GRADIENT</div>
+    </div>
+    <div class="typo-cell">
+      <div class="typo-label">Stacked text-shadow</div>
+      <div class="text-shadow-multi">SHADOW</div>
+    </div>
+    <div class="typo-cell">
+      <div class="typo-label">Stripe clip mask</div>
+      <div class="text-clip">TEXTURE</div>
+    </div>
+    <div class="typo-cell">
+      <div class="typo-label">Glitch animation</div>
+      <div class="text-glitch" data-text="GLITCH">GLITCH</div>
+    </div>
+    <div class="typo-cell">
+      <div class="typo-label">Layered text-shadow (3D)</div>
+      <div class="text-3d">3D TEXT</div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* 3D Tilt Card */
+const tiltCard = document.getElementById('tiltCard');
+tiltCard.addEventListener('mousemove', e => {
+  const r = tiltCard.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  tiltCard.style.transform = `perspective(600px) rotateX(${-y * 20}deg) rotateY(${x * 20}deg) scale(1.02)`;
+});
+tiltCard.addEventListener('mouseleave', () => {
+  tiltCard.style.transform = 'perspective(600px) rotateX(0) rotateY(0) scale(1)';
+});
+
+/* Scroll reveal */
+const revealAll = document.querySelectorAll('.section');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.style.opacity = '1';
+  });
+}, {threshold: 0.05});
+revealAll.forEach(s => obs.observe(s));
+
+/* Smooth scroll for nav */
+document.querySelectorAll('.nav-item').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

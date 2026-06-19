@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Animated Carousel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --card-w: 200px;
+    --card-h: 280px;
+    --n: 10; /* number of cards */
+    --theta: calc(360deg / var(--n));
+    --radius: 380px;
+    --duration: 30s;
+    --bg: #0a0a12;
+    --accent: #7c3aed;
+    --accent2: #06b6d4;
+  }
+
+  body {
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  /* Ambient glow background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 60%, rgba(124,58,237,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(6,182,212,0.12) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 0.12em;
+    background: linear-gradient(135deg, #fff 30%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  header p {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.35);
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+
+  /* ── Scene & Carousel ── */
+  .scene {
+    position: relative;
+    z-index: 5;
+    width: var(--card-w);
+    height: var(--card-h);
+    perspective: 1200px;
+  }
+
+  .carousel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: spin var(--duration) linear infinite;
+  }
+
+  .carousel:hover { animation-play-state: paused; }
+
+  @keyframes spin {
+    from { transform: rotateY(0deg); }
+    to   { transform: rotateY(-360deg); }
+  }
+
+  /* Position each card around the circle */
+  .card {
+    position: absolute;
+    width: var(--card-w);
+    height: var(--card-h);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 0 0 1px rgba(124,58,237,0.15),
+      0 20px 60px rgba(0,0,0,0.6);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    backface-visibility: hidden;
+  }
+
+  /* Auto-place each card: nth-child(i) rotates by i * theta, then translates by radius */
+  .card:nth-child(1)  { transform: rotateY(calc(0  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(2)  { transform: rotateY(calc(1  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(3)  { transform: rotateY(calc(2  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(4)  { transform: rotateY(calc(3  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(5)  { transform: rotateY(calc(4  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(6)  { transform: rotateY(calc(5  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(7)  { transform: rotateY(calc(6  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(8)  { transform: rotateY(calc(7  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(9)  { transform: rotateY(calc(8  * var(--theta))) translateZ(var(--radius)); }
+  .card:nth-child(10) { transform: rotateY(calc(9  * var(--theta))) translateZ(var(--radius)); }
+
+  .card:hover {
+    box-shadow:
+      0 0 0 2px rgba(6,182,212,0.6),
+      0 30px 80px rgba(0,0,0,0.8),
+      0 0 40px rgba(6,182,212,0.2);
+    border-color: rgba(6,182,212,0.5);
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85) saturate(1.1);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+
+  .card:hover img {
+    filter: brightness(1) saturate(1.3);
+    transform: scale(1.06);
+  }
+
+  /* Glass overlay label */
+  .card-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 14px 14px;
+    background: linear-gradient(to top, rgba(10,10,18,0.85) 0%, transparent 100%);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover .card-label { opacity: 1; }
+
+  /* Controls */
+  .controls {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 16px;
+    margin-top: 80px;
+    align-items: center;
+  }
+
+  .btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .btn:hover {
+    background: rgba(124,58,237,0.25);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(124,58,237,0.3);
+  }
+
+  .btn.active {
+    background: rgba(124,58,237,0.35);
+    border-color: var(--accent);
+  }
+
+  /* Speed label */
+  .speed-display {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* Bottom edge vignette */
+  .vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,18,0.7) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="vignette"></div>
+
+<header>
+  <h1>3D Animated Carousel</h1>
+  <p>HTML &amp; CSS · Pure CSS 3D Transform</p>
+</header>
+
+<div class="scene">
+  <div class="carousel" id="carousel">
+
+    <div class="card">
+      <img src="pic/old.jpg" alt="Jellyfish 1">
+      <div class="card-label">Jellyfish · 01</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/clint.jpg" alt="Jellyfish 2">
+      <div class="card-label">Jellyfish · 02</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/wacha.jpg" alt="Jellyfish 3">
+      <div class="card-label">Jellyfish · 03</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/m7.jpg" alt="Jellyfish 4">
+      <div class="card-label">Jellyfish · 04</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/sam.jpg" alt="Ocean 5">
+      <div class="card-label">Ocean · 05</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/morgan.jpg" alt="Ocean 6">
+      <div class="card-label">Ocean · 06</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/steven.jpg" alt="Ocean 7">
+      <div class="card-label">Ocean · 07</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/stvn.jpg" alt="Ocean 8">
+      <div class="card-label">Ocean · 08</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/mivlule.jpg" alt="Ocean 9">
+      <div class="card-label">Ocean · 09</div>
+    </div>
+
+    <div class="card">
+      <img src="pic/stark.jpg" alt="Ocean 10">
+      <div class="card-label">Ocean · 10</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="btnSlow">Slow</button>
+  <button class="btn active" id="btnNormal">Normal</button>
+  <button class="btn" id="btnFast">Fast</button>
+  <span class="speed-display" id="speedLabel">30s / rev</span>
+</div>
+
+<script>
+  const carousel = document.getElementById('carousel');
+  const speeds = { slow: 60, normal: 30, fast: 12 };
+  const btns = {
+    slow: document.getElementById('btnSlow'),
+    normal: document.getElementById('btnNormal'),
+    fast: document.getElementById('btnFast'),
+  };
+  const speedLabel = document.getElementById('speedLabel');
+
+  function setSpeed(key) {
+    const s = speeds[key];
+    carousel.style.animationDuration = s + 's';
+    speedLabel.textContent = s + 's / rev';
+    Object.entries(btns).forEach(([k, b]) => b.classList.toggle('active', k === key));
+  }
+
+  btns.slow.onclick   = () => setSpeed('slow');
+  btns.normal.onclick = () => setSpeed('normal');
+  btns.fast.onclick   = () => setSpeed('fast');
+</script>
+</body>
+</html>

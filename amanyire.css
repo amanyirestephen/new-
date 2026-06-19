@@ -1,0 +1,34 @@
+.container {
+  display: grid;
+  grid-template-columns: 80px 400px 1fr; /* Sidebar, Profile, Content */
+  height: 100vh;
+  background-color: #76c893; /* Green background color */
+}
+
+/* Diagonal cut on profile image */
+.profile-header {
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  overflow: hidden;
+}
+
+.profile-card {
+  background: white;
+  margin: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sidebar {
+  background-color: #222;
+  color: white;
+  text-align: center;
+}
+
+.content {
+  background: white;
+  margin: 20px 20px 20px 0;
+  padding: 40px;
+  border-radius: 10px;
+  overflow-y: auto;
+}

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEPH Electronics - Quality Electronic Appliances</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            font-style: italic;
+        }
+        
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #667eea;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .featured-items {
+            margin: 30px 0;
+        }
+        
+        .featured-items h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .featured-items ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .featured-items li {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        table th {
+            background-color: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .other-items {
+            margin: 30px 0;
+        }
+        
+        .other-items h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .other-items ol {
+            margin-left: 20px;
+        }
+        
+        .other-items li {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .contact-section {
+            background-color: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .contact-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .hello-button {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        .hello-button:hover {
+            background-color: #5568d3;
+            transform: scale(1.05);
+        }
+        
+        .order-button {
+            background-color: #764ba2;
+            color: white;
+        }
+        
+        .order-button:hover {
+            background-color: #6a3d8a;
+            transform: scale(1.05);
+        }
+        
+        .marquee {
+            background-color: #667eea;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+        
+        .social-links {
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔌 STEPH ELECTRONICS</h1>
+        <p>Dealers in all electronic appliances in any quantity</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#other-items">More Items</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="hero">
+            <img src="pic/stvn.jpg" alt="STEPH Electronics Store">
+        </div>
+        
+        <section class="featured-items" id="products">
+            <h2>Featured Products</h2>
+            <ul>
+                <li>📱 Phones - Latest models and brands</li>
+                <li>📻 Radios - Vintage and modern options</li>
+                <li>🤖 Robots - Innovative automation devices</li>
+                <li>🔌 Chargers - Compatible with all devices</li>
+            </ul>
+        </section>
+        
+        <section id="pricing">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Pricing & Inventory</h2>
+            <table>
+                <tr>
+                    <th>ITEM</th>
+                    <th>UNIT PRICE</th>
+                    <th>QUANTITY IN STOCK</th>
+                </tr>
+                <tr>
+                    <td>Phones</td>
+                    <td>500,000</td>
+                    <td>10,000</td>
+                </tr>
+                <tr>
+                    <td>Radios</td>
+                    <td>50,000</td>
+                    <td>5,000</td>
+                </tr>
+                <tr>
+                    <td>Chargers</td>
+                    <td>2,000</td>
+                    <td>1,000</td>
+                </tr>
+            </table>
+        </section>
+        
+        <section class="other-items" id="other-items">
+            <h2>Additional Available Items</h2>
+            <ol>
+                <li>💾 Flash disks - Various storage capacities</li>
+                <li>🎴 Memory cards - SD, microSD, and more</li>
+                <li>🔋 Batteries - All types and sizes</li>
+                <li>☕ Percolators - Quality brewing equipment</li>
+            </ol>
+        </section>
+        
+        <div class="marquee">
+            ✨ STEPH - Your Trusted Electronics Partner ✨
+        </div>
+        
+        <section class="contact-section" id="contact">
+            <h2>Get in Touch / Place an Order</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="product">Interested Product</label>
+                    <select id="product" name="product" required>
+                        <option value="">Select a product</option>
+                        <option value="phones">Phones</option>
+                        <option value="radios">Radios</option>
+                        <option value="robots">Robots</option>
+                        <option value="chargers">Chargers</option>
+                        <option value="flash-disks">Flash Disks</option>
+                        <option value="memory-cards">Memory Cards</option>
+                        <option value="batteries">Batteries</option>
+                        <option value="percolators">Percolators</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Desired Quantity</label>
+                    <input type="number" id="quantity" name="quantity" min="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message / Special Requests</label>
+                    <textarea id="message" name="message" placeholder="Tell us more about your inquiry..."></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" class="hello-button">HELLO - Get Info</button>
+                    <button type="submit" class="order-button">ORDER - Submit</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2026 STEPH Electronics. All rights reserved.</p>
+        <p>Quality products | Fast delivery | Competitive prices</p>
+        <div class="social-links">
+            <a href="https://www.google.com" target="_blank">Visit Our Partner</a>
+        </div>
+    </footer>
+</body>
+</html>
+<button class="receipt-button">RECEIPT</button>
+<style>
+    .hello-button{
+        background-color:greenyellow;
+        color:rgb(16, 6, 6);
+        height: 40px;
+        width: 80px;
+        cursor: pointer;
+        border-radius: 20px;
+    }
+</style>
+<p>Name</p>
+<form action="" method="">
+    <input type="text" name="">
+</form>
+PASSWORD
+<form action="" method="">
+    <input type="password" password="">
+</form>
+GENDER
+<form action="" method="">
+    Male
+    <input type="radio" name="malefemale" value="">
+    Female
+    <input type="radio" name="malefemale" value="">
+</form>
+</body>
+</html>
